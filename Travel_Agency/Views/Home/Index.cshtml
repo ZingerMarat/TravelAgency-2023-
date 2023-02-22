@@ -1,0 +1,72 @@
+﻿@using System.Data.Entity
+@model IEnumerable<Travel_Agency.Models.Booking>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div>
+
+    @using (Html.BeginForm("FlightResults", "Bookings", FormMethod.Post))
+    {
+        <div class="row " id="items">
+
+            <label for="departure">From</label>
+            <select name="Dep_Location" id="departure" class="form-control">
+                @foreach (var from in ViewBag.From)
+                {
+                    <option value="@from">@from</option>
+                }
+            </select>
+
+            <label for="destination">To</label>
+            <select name="Dest_Location" id="destination" class="form-control">
+                @foreach (var to in ViewBag.To)
+                {
+                    <option value="@to">@to</option>
+                }
+            </select>
+
+            @Html.Label("Depart")
+            @Html.TextBox("Dep_Date", "", htmlAttributes: new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), max = DateTime.Now.AddYears(2).ToString("yyyy-MM-dd") })
+
+            <!--Add a checkbox named "Add Return", once the checkbox is selected, show a user a date time picker (by default, hidden)-->
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="AddReturn" id="addReturn" value="true" />
+                    Add Return
+                </label>
+
+            </div>
+
+            <div id="Return_Date" style="display:none">
+                @Html.Label("Return")
+                @Html.TextBox("Return_Date", "", htmlAttributes: new { id = "Return_Date", @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), max = DateTime.Now.AddYears(2).ToString("yyyy-MM-dd") })
+
+            </div>
+
+
+            <button type="submit" class="btn btn-success">Find Flight</button>
+
+        </div>
+    }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#addReturn").click(function () {
+                if ($(this).prop("checked")) {
+                    $("#Return_Date").show();
+                } else {
+                    $("#Return_Date").hide();
+                }
+            });
+        });
+    </script>
+
+</div>
+
+
+

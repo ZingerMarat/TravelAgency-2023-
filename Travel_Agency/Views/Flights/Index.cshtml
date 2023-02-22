@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Travel_Agency.Models.Flight>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<p>
+    Sort by:
+    <a href="@Url.Action("Index", new { sortOrder = "Country" })">Country</a> |
+    <a href="@Url.Action("Index", new { sortOrder = "Country" })">Date</a> |
+    <a href="@Url.Action("Index", new { sortOrder = "Price" })">Price</a>
+</p>
+<!--Show the count of flights-->
+<p>
+    @Model.Count() flights found.
+</p>
+    <table class="table">
+        <tr>
+            <th>
+                Flight Number
+            </th>
+            <th>
+                @Html.ActionLink("Departure", "Index", new { sortOrder = ViewData["CountrySortParm"] })
+            </th>
+            <th>
+                @Html.ActionLink("Destination", "Index", new { sortOrder = ViewData["CountrySortParm"] })
+            </th>
+            <th>
+                @Html.ActionLink("Departure Date", "Index", new { sortOrder = ViewData["PriceSortParm"] })
+            </th>
+            <th>
+                @Html.ActionLink("Arrival Date", "Index", new { sortOrder = ViewData["PriceSortParm"] })
+            </th>
+            <th>
+                Max Seats
+            </th>
+            <th>
+                @Html.ActionLink("Price", "Index", new { sortOrder = ViewData["PriceSortParm"] })
+            </th>
+            <th>
+                Duration
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Flight_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dep_location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dest_location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dep_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Arr_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Max_seat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seat_Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration) Hours
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Flight_Number }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Flight_Number })
+                </td>
+            </tr>
+        }
+
+    </table>

@@ -1,0 +1,181 @@
+﻿@model Dictionary<string, IEnumerable<Travel_Agency.Models.Flight>>
+
+
+
+
+@{
+    ViewBag.Title = "Marat's Flights";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@if (Model == null || !Model.Any())
+{
+    <tr>
+        <h1>No Flights Records Has be Found, Try Again.</h1>
+    </tr>
+}
+else
+{
+    <p>
+        Sort by:
+        <a href="@Url.Action("Index", new { sortOrder = "Price" })">Price</a> |
+        <a href="@Url.Action("Index", new { sortOrder = "Country" })">Country</a>
+    </p>
+    <h2>Departure</h2>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Origin", "Index", new { sortOrder = ViewData["CountrySortParm"] })
+            </th>
+            <th>
+                @Html.ActionLink("Destination", "Index", new { sortOrder = ViewData["CountrySortParm"] })
+            </th>
+            <th>
+                Departure Date
+            </th>
+            <th>
+                Arrival Date
+            </th>
+            <th>
+                Duration
+            </th>
+            <th>
+                @Html.ActionLink("Price", "Index", new { sortOrder = ViewData["PriceSortParm"] })
+            </th>
+            <th></th>
+        </tr>
+
+
+        <!--Loop thru the dictionary on the "Departure Key"-->
+
+        @foreach (var flight in Model["Departure"])
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => flight.Dep_location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => flight.Dest_location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => flight.Dep_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => flight.Arr_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => flight.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => flight.Seat_Price)
+                </td>
+                <td>
+                    <label>
+                        <input type="radio" name="selectedDeparture" value="@flight.Flight_Number" class="hidden-radio" id="@flight.Flight_Number" />
+                        <a href="#" onclick="document.getElementById('@flight.Flight_Number').click()">Select</a>
+                    </label>
+                </td>
+            </tr>
+        }
+
+
+    </table>
+    <!--Check if available return flights for a "Return" key is the dictionary-->
+
+    if (Model.ContainsKey("Return"))
+    {
+        <h2>Departure</h2>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.ActionLink("Origin", "Index", new { sortOrder = ViewData["CountrySortParm"] })
+                </th>
+                <th>
+                    @Html.ActionLink("Destination", "Index", new { sortOrder = ViewData["CountrySortParm"] })
+                </th>
+                <th>
+                    Departure Date
+                </th>
+                <th>
+                    Arrival Date
+                </th>
+                <th>
+                    Duration
+                </th>
+                <th>
+                    @Html.ActionLink("Price", "Index", new { sortOrder = ViewData["PriceSortParm"] })
+                </th>
+                <th></th>
+            </tr>
+
+            <!--Check if Model["Return"] key is exists-->
+            @if (Model["Return"] != null)
+            {
+                foreach (var flight in Model["Return"])
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => flight.Dep_location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => flight.Dest_location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => flight.Dep_date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => flight.Arr_date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => flight.Duration)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => flight.Seat_Price)
+                        </td>
+                        <td>
+                            <label>
+                                <input type="radio" name="selectedReturn" value="@flight.Flight_Number" class="hidden-return" id="@flight.Flight_Number" />
+                                <a href="#" onclick="document.getElementById('@flight.Flight_Number').click()">Select</a>
+                            </label>
+                        </td>
+
+                    </tr>
+                }
+            }
+            <!--Loop thru the dictionary on the "Departure Key"-->
+
+
+
+
+        </table>
+
+
+    }
+    else
+    {
+        <h2>No Return Flights Available</h2>
+    }
+
+
+    <!--Create a button with href with the flight numbers-->
+
+    <a href="#" class="btn btn-success" id="book-link">Book Selected Flights</a>
+
+
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#book-link").click(function() {
+            var departure = $('input[name=selectedDeparture]:checked').val();
+            var returnValue = $('input[name=selectedReturn]:checked').val();
+            var url = '@Url.Action("Book", "Bookings")' + '?Departure=' + departure + '&Return=' + returnValue;
+            window.location.href = url;
+        });
+    });
+</script>

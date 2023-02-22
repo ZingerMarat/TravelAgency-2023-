@@ -1,0 +1,58 @@
+﻿@model Travel_Agency.Models.Customer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Booking.Flight_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Booking.Flight_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.c_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.c_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.c_FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.c_FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.c_LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.c_LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.c_password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.c_password)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.c_Email }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

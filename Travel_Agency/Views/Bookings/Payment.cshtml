@@ -1,0 +1,122 @@
+﻿@using Travel_Agency.Models
+
+@{
+    var paymentInfo = (PaymentInfo)ViewBag.PaymentInfo;
+    var customer = (Customer)ViewBag.Customers;
+    var DeparturePrice = (int)ViewBag.DeparturePrice;
+    var ReturnPrice = (int)ViewBag.ReturnPrice;
+    var TotalPrice = (int)ViewBag.TotalPrice;
+
+
+}
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h1>Payment Details</h1>
+
+    <!--Show the price for the seats with $ sign-->
+
+    <h2>Departure Flight Price: @DeparturePrice $</h2>
+    if (ReturnPrice != 0)
+    {
+        <h2>Return Flight Price: @ReturnPrice $</h2>
+    }
+    <h2>Total Price: @TotalPrice $</h2>
+
+
+
+        using (Html.BeginForm("Payment", "Bookings", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h3>Payment Method</h3>
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => paymentInfo.payer_name, "Full Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+
+                        @Html.EditorFor(model => paymentInfo.payer_name, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                        @Html.ValidationMessageFor(model => paymentInfo.payer_name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => paymentInfo.payer_id, "ID", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+
+                        @Html.EditorFor(model => paymentInfo.payer_id, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                        @Html.ValidationMessageFor(model => paymentInfo.payer_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => paymentInfo.credit_card_number, "Credit Card Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+
+                        @Html.EditorFor(model => paymentInfo.credit_card_number, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                        @Html.ValidationMessageFor(model => paymentInfo.credit_card_number, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.Label("Expiration Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.DropDownList("month", new SelectList(new[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }), "Month", new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.DropDownList("year", new SelectList(new[] { "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }), "Year", new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!--Validate CVV is 3 digits-->
+
+                    @Html.Label("CVV", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+
+                        <!--TextBox field Must ber 3 digits without using model-->
+                        @Html.EditorFor(model => paymentInfo.cvv, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                        @Html.ValidationMessageFor(model => paymentInfo.cvv, "", new { @class = "text-danger" })
+
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Pay" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div>
+            <h1>You are not logged in. </h1>
+            <br />
+            <h2>Please @Html.ActionLink("Login", "Login", "Customers")/ @Html.ActionLink("Register", "Register", "Customers") proceed the payment.</h2>
+
+        </div>
+    }
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,175 @@
+﻿@using Travel_Agency.Models
+
+@{
+    var booking = (Booking)ViewBag.Booking;
+    var DepartureFlightDetails = (FlightDetails)ViewBag.DepartureFlightDetails;
+    var ReturnFlightDetails = (FlightDetails)ViewBag.ReturnFlightDetails;
+}
+
+<h2>Book a Flight</h2>
+
+<h4>Departure Flight Details</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            Flight Number
+        </th>
+        <th>
+            Origin
+        </th>
+        <th>
+            Destination
+        </th>
+        <th>
+            Departure Date
+        </th>
+        <th>
+            Arrival Date
+        </th>
+        <th>
+            Seat Price
+        </th>
+        <th>
+            Available Seats
+        </th>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => DepartureFlightDetails.Flight_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => DepartureFlightDetails.Flight.Dep_location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => DepartureFlightDetails.Flight.Dest_location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => DepartureFlightDetails.Flight.Dep_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => DepartureFlightDetails.Flight.Arr_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => DepartureFlightDetails.Flight.Seat_Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => DepartureFlightDetails.Available_Seats)
+        </td>
+    </tr>
+
+</table>
+
+<!--If ReturnFlightDetails is not null, show table-->
+
+@if (ReturnFlightDetails != null)
+{
+    <h4>Return Flight Details</h4>
+
+    <table class="table">
+        <tr>
+            <th>
+                Flight Number
+            </th>
+            <th>
+                Origin
+            </th>
+            <th>
+                Destination
+            </th>
+            <th>
+                Departure Date
+            </th>
+            <th>
+                Arrival Date
+            </th>
+            <th>
+                Seat Price
+            </th>
+            <th>
+                Available Seats
+            </th>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => ReturnFlightDetails.Flight_Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => ReturnFlightDetails.Flight.Dep_location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => ReturnFlightDetails.Flight.Dest_location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => ReturnFlightDetails.Flight.Dep_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => ReturnFlightDetails.Flight.Arr_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => ReturnFlightDetails.Flight.Seat_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => ReturnFlightDetails.Available_Seats)
+            </td>
+        </tr>
+
+    </table>
+}
+
+
+
+@using (Html.BeginForm("Book", "Bookings", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        <!--Label Select seats for the departure flight-->
+        @Html.Label("Select seats for the departure flight", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="number" name="DepartureFlightSeats" min="1" max="@DepartureFlightDetails.Available_Seats" value="1" />
+
+        </div>
+    </div>
+
+    <!--If return flight not null-->
+    @if (ReturnFlightDetails != null)
+    {
+        <div class="form-group">
+            <!--Label Select seats for the return flight-->
+            @Html.Label("Select seats for the return flight", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="number" name="ReturnFlightSeats" min="1" max="@ReturnFlightDetails.Available_Seats" value="1" />
+
+            </div>
+        </div>
+    }
+
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Book Selected Flights" class="btn btn-default" />
+        </div>
+    </div>
+
+
+</div>
+    }
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+

@@ -1,0 +1,104 @@
+﻿@model Travel_Agency.Models.Flight
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Flight</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FlightDetails.Flight_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlightDetails.Flight_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.f_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.f_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dep_location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dep_location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dest_location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dest_location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dep_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dep_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Arr_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Arr_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Max_seat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Max_seat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seat_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seat_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.c_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.c_Email)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

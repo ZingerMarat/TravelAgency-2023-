@@ -1,0 +1,93 @@
+﻿@model Travel_Agency.Models.Flight
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<a href="@Url.Action("GenerateRandomFlights", "Flights")">Generate Random Flights</a>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Flight</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2">Flight Number</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Flight_Number, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Flight_Number, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Departure</label>
+        <div class="col-md-10">
+
+            @Html.EditorFor(model => model.Dep_location, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Dep_location, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Destination</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Dest_location, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Dest_location, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Departure Date</label>
+        <div class="col-md-10">
+            <!--Create DateTime Field in the form-->
+
+            @Html.TextBoxFor(m => m.Dep_date, new { @class = "form-control", type = "datetime-local" })
+            @Html.ValidationMessageFor(model => model.Dep_date, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Arrival Date</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Arr_date, new { @class = "form-control", type = "datetime-local" })
+            @Html.ValidationMessageFor(model => model.Arr_date, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Max Seats</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Max_seat, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Max_seat, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Seat Price</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Seat_Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Seat_Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

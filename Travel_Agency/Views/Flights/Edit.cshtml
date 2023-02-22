@@ -1,0 +1,86 @@
+﻿@model Travel_Agency.Models.Flight
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Flight</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Flight_Number)
+        
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Departure</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Dep_location, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Dep_location, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Destination</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Dest_location, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Dest_location, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Departure Date</label>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Dep_date)
+                @Html.EditorFor(model => model.Dep_date, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                @Html.ValidationMessageFor(model => model.Dep_date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Arrival Date</label>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Arr_date)
+                @Html.EditorFor(model => model.Arr_date, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                @Html.ValidationMessageFor(model => model.Arr_date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Max Seats</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Max_seat, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Max_seat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Seat Price</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Seat_Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Seat_Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

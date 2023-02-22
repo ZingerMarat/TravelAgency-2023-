@@ -1,0 +1,37 @@
+﻿@using Travel_Agency.Models
+
+@{
+    <!--Get the ViewBag as IQueryable-->
+
+    var flightDetailsListWithPrice = (List<List<FlightDetails>>)ViewBag.flightDetailsListWithPrice;
+
+
+
+}
+@{
+    ViewBag.Title = "Index";
+}
+
+<table>
+    <thead>
+    <tr>
+        <th>Flight Number</th>
+        <th>Departure</th>
+        <th>Destination</th>
+        <th>Price</th>
+        <th>Available Seats</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr>
+            <td>@Model[i].Flight.Flight_Number</td>
+            <td>@Model[i].Flight.Departure</td>
+            <td>@Model[i].Flight.Destination</td>
+            <td>@Model[i].Price</td>
+            <td>@Model[i].AvailableSeats</td>
+        </tr>
+    }
+    </tbody>
+</table>
