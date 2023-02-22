@@ -1,5 +1,5 @@
 # Flight with Marat Travel Agency
-Minimal fake website for booking flights, developed by Marat & German
+Minimal fake website for booking flights, developed by Marat Zinger and Kfir German (https://github.com/KfirGerman)
 
 
 ## Installation
